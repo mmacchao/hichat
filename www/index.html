@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="box">
+        <!--内容区域-->
+        <div class="content">
+            <ul class="list-unstyle" id="msgList">
+                <li v-for="dialog in dialogs" :class="{'text-right': dialog.name == nickname}">
+                    <!--纯文字-->
+                    <template v-if="!dialog.words.img">
+                        <span :style="{color: dialog.words.color}" :style="color: dialog.color" :class="{'red': dialog.name == 'system'}" v-html="dialog.name != nickname ? dialog.name : dialog.words.words"></span>
+                        <span v-html="dialog.name != nickname ? '('+dialog.time + '):' : ':(' + dialog.time + ')'" class="time"></span>
+                        <span :style="{color: dialog.words.color}" :class="{'red': dialog.name == 'system'}" v-html="dialog.name == nickname ? dialog.name : dialog.words.words"></span>
+                    </template>
+                    <!--图片-->
+                    <template v-else>
+                        <template v-if="dialog.name == nickname">
+                            <span v-text="':('+dialog.time + ')'" class="time"></span>
+                            <span :style="{color: dialog.words.color}" v-text="dialog.name"></span><br>
+                        </template>
+                        <tmeplate v-else>
+                            <span :style="{color: dialog.words.color}" v-text="dialog.name"></span>
+                            <span v-text="':('+dialog.time + ')'" class="time"></span><br>
+                        </tmeplate>
+
+                        <img :src="dialog.words.img" alt="" style="max-width: 50%;">
+                    </template>
+                </li>
+            </ul>
+        </div>
+        <!--工具-->
+        <div class="tools">
+            <input v-model="wordColor" type="color" placeholder="#000" class="btn">
+            <input @click="showEmojiList" type="button" value="emoji" class="btn">
+            <label class="image-label" @change="sendImage($event)">
+                <input type="button" value="image" class="btn">
+                <input class="send-image" type="file" value="image" accept="image/gif, image/jpeg">
+            </label>
+            <input @click="clearScreen" type="button" value="clear" class="btn">
+            <div v-show="canShowEmojiList" class="emoji-list-box">
+                <ul class="list-inline emoji-list">
+                    <li @click="selEmoji($index)" v-for="imgUrl in emojiList">
+                        <img :src="imgUrl" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--输入-->
+        <div class="input-box">
+            <!--输入框-->
+            <div class="input">
+                <textarea @keydown.enter.prevent="sendMsg(beingSendMsg)" v-model="beingSendMsg" id="inputMsg" name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <!--发送框-->
+            <div class="send">
+                <button @click="sendMsg(beingSendMsg)" class="btn-send">send</button>
+            </div>
+        </div>
+
+        <!--logo及用户在线数-->
+        <p class="logo">
+            <img  src="img/logo.png" alt="logo"><br>
+            <span v-text="numbers + ' users online'"></span>
+        </p>
+
+    </div>
+
+    <!--页面打开时输入昵称-->
+    <div v-if="!loginSuccess" class="cover">
+        <div class="center js-center">
+            <span v-text="welcome">connecting to server...</span>
+            <p v-show="connect">
+                <input @keydown.enter="submitNickname($event)" id="nickname" autofocus v-model="nickname" type="text" placeholder="nickname">
+                <button @click="submitNickname($event)">ok</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="js/vue.min.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/main-compiled.js"></script>
+</body>
+</html>

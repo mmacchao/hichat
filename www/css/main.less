@@ -1,0 +1,195 @@
+@bd-color: #ddd;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  &:after {
+    box-sizing: border-box;
+  }
+  &:before {
+    box-sizing: border-box;
+  }
+}
+ul,ol {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+html {
+  font-size: 10px;
+}
+body {
+  font-size: 1.4rem;
+  font-family: 'microsoft yahei';
+}
+input {
+  border: none;
+}
+.hide {
+  display: none;
+}
+.text-right {
+  text-align: right;
+}
+.clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  &:before {
+    content: '';
+    display: table;
+  }
+}
+.red {
+  color: #f33;
+}
+.list-unstyle {
+  height: 100%;
+  overflow-y: auto;
+  > li {
+    padding: 5px 0;
+    > .time {
+      color: #aaa;
+    }
+  }
+}
+.list-inline {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  > li {
+    float: left;
+    margin-right: 5px;
+  }
+}
+
+.emoji-list-box {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid @bd-color;
+  background-color: @bd-color;
+  > .emoji-list {
+    padding-left: 5px;
+    > li {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      > img {
+      }
+    }
+  }
+}
+
+.box {
+  position: relative;
+  width: 600px;
+  margin: 30px auto;
+  border: 1px solid @bd-color;
+  border-top-width: 80px;
+  > .content {
+    height: 400px;
+    border: 1px solid @bd-color;
+    padding: 15px;
+  }
+  > .input-box {
+    height: 80px;
+    .clearfix;
+  }
+  > .logo {
+    position: absolute;
+    top: -68px;
+    left: 5px;
+  }
+}
+.input-box {
+  > .input {
+    float: left;
+    width: 75%;
+    height: 100%;
+    border: 1px solid @bd-color;
+    > textarea {
+      width: 100%;
+      height: 100%;
+      resize: none;
+      padding: 5px;
+    }
+  }
+  > .send {
+    float: left;
+    width: 25%;
+    height: 100%;
+    > .btn-send {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+.tools {
+  position: relative;
+  > .btn {
+    width: 44px;
+    height: 23px;
+    vertical-align: middle;
+  }
+  > .image-label {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 44px;
+    height: 23px;
+    > * {
+      cursor: pointer;
+    }
+    > input[type="button"] {
+      width: 44px;
+      height: 23px;
+      cursor: pointer;
+    }
+    > .send-image {
+      position: absolute;
+      width: 35px;
+      opacity: 0;
+      left: 0;
+      top: 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.cover {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(3, 3, 3, .4);
+  > .center {
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    > p {
+      text-align: center;
+      * {
+        padding: 5px;
+      }
+    }
+  }
+}
